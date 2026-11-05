@@ -1,3 +1,5 @@
+import type { ComponentType, ReactNode } from 'react';
+
 export type TFavoriteCharacter = {
   id: number;
   name: string;
@@ -15,12 +17,12 @@ export type TLinkComponentProps = {
   to: string;
   className?: string;
   onClick?: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export type TFavoriteCharactersProps = {
   favorites: TFavoriteCharacter[];
   onRemove: (_id: number) => void;
   labels: TFavoriteCharactersLabels;
-  linkComponent?: React.ComponentType<TLinkComponentProps>;
+  linkComponent?: ComponentType<TLinkComponentProps>;
 };
