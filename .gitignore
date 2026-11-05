@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Env files (VITE_BASE_PATH задаётся в CI и в настройках Vercel)
+.env
+.env.*
+!.env.example
