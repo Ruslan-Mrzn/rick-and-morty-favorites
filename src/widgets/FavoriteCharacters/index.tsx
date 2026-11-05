@@ -7,7 +7,12 @@ import type { TFavoriteCharactersProps, TLinkComponentProps } from './types';
 
 const MAX_FAVORITES_TO_VIEW = 9;
 
-const DefaultLink = ({ to, className, onClick, children }: TLinkComponentProps) => (
+const DefaultLink = ({
+  to,
+  className,
+  onClick,
+  children
+}: TLinkComponentProps) => (
   <a
     className={className}
     href={to}

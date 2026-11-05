@@ -1,75 +1,60 @@
-# React + TypeScript + Vite
+# R & M Favorites — микрофронт
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Виджет «Избранные персонажи», вынесенный в отдельное приложение и подключаемый к хосту через Module Federation. Хост загружает `remoteEntry.js` и рендерит виджет, передавая данные и тексты через props.
 
-Currently, two official plugins are available:
+## Деплой
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **GitHub Pages:** https://ruslan-mrzn.github.io/rick-and-morty-favorites/
+- **Vercel:** https://rick-and-morty-favorites.vercel.app/
 
-## React Compiler
+## Стек
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- Module Federation (`@originjs/vite-plugin-federation`)
+- SCSS Modules
+- ESLint + Stylelint + Prettier + Husky + lint-staged
 
-## Expanding the ESLint configuration
+## Установка
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Скрипты
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev     # запуск dev-сервера (порт 5001)
+npm run build   # сборка продакшн-версии
+npm run preview # предпросмотр сборки
+npm run lint    # ESLint
+npm run lint:css        # Stylelint
+npm run prettier:fix    # форматирование всех файлов
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Функционал
+
+- **Избранные персонажи** — панель со списком, открывается по клику на иконку
+- **Удаление из избранного** — кнопка `×` у каждого элемента
+- **Счётчик** — показывает количество избранного (показывает `9+` при превышении порога)
+- **Тёмная тема** — переключение через CSS-переменные (атрибут `data-theme="dark"`)
+- **Стенд** — в dev-режиме поднимается standalone-страница с моковыми данными, чтобы отлаживать виджет без хоста
+
+## Структура проекта
 
 ```
+src/
+├── assets/       # Иконки
+├── styles/       # SCSS: тема, стили стенда
+└── widgets/
+    └── FavoriteCharacters/   # Виджет избранного
+```
+
+## Особенности
+
+- **Module Federation (remote):** `FavoriteCharacters` экспортируется как `./FavoriteCharacters` и загружается хостом динамически
+- **Динамический `base`** путь для деплоя на Vercel и GitHub Pages — задаётся через `VITE_BASE_PATH` при сборке. На Pages подставляется в CI, на Vercel используется `/` по умолчанию
+- **Тёмная тема:** CSS-переменные в `src/styles/theme.scss`, переключение через атрибут `data-theme` на `<html>`
+- **Стенд:** в dev-режиме `main.tsx` подключает `standalone.scss` и рендерит `App` с моковыми данными. В продакшн-сборке `index.html` из `dist` удаляется
+- **Husky + lint-staged:** на коммит прогоняются `eslint --fix`, `prettier --write`, `stylelint --fix`
