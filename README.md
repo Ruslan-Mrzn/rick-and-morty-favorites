@@ -2,11 +2,6 @@
 
 Виджет «Избранные персонажи», вынесенный в отдельное приложение и подключаемый к хосту через Module Federation. Хост загружает `remoteEntry.js` и рендерит виджет, передавая данные и тексты через props.
 
-## Деплой
-
-- **GitHub Pages:** https://ruslan-mrzn.github.io/rick-and-morty-favorites/
-- **Vercel:** https://rick-and-morty-favorites.vercel.app/
-
 ## Стек
 
 - React 19
@@ -55,6 +50,5 @@ src/
 
 - **Module Federation (remote):** `FavoriteCharacters` экспортируется как `./FavoriteCharacters` и загружается хостом динамически
 - **Динамический `base`** путь для деплоя на Vercel и GitHub Pages — задаётся через `VITE_BASE_PATH` при сборке. На Pages подставляется в CI, на Vercel используется `/` по умолчанию
-- **Тёмная тема:** CSS-переменные в `src/styles/theme.scss`, переключение через атрибут `data-theme` на `<html>`
 - **Стенд:** в dev-режиме `main.tsx` подключает `standalone.scss` и рендерит `App` с моковыми данными. В продакшн-сборке `index.html` из `dist` удаляется
 - **Husky + lint-staged:** на коммит прогоняются `eslint --fix`, `prettier --write`, `stylelint --fix`

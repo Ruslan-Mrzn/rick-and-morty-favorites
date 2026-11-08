@@ -1,10 +1,7 @@
 import { useState } from 'react';
 
-import FavoriteCharacters from '@/widgets/FavoriteCharacters';
-import type {
-  TFavoriteCharacter,
-  TFavoriteCharactersLabels
-} from '@/widgets/FavoriteCharacters/types';
+import FavoriteCharacters from '@/widgets';
+import type { TFavoriteCharacter, TFavoriteCharactersLabels } from '@/widgets';
 
 const MOCK_FAVORITES: TFavoriteCharacter[] = [
   { id: 1, name: 'Rick Sanchez' },
@@ -28,24 +25,14 @@ const LABELS: TFavoriteCharactersLabels = {
   empty: 'Сначала добавьте персонажей в избранное'
 };
 
-type TTheme = 'light' | 'dark';
-
 const App = () => {
   const [favorites, setFavorites] =
     useState<TFavoriteCharacter[]>(MOCK_FAVORITES);
-  const [theme, setTheme] = useState<TTheme>('light');
 
   const handleRemove = (id: number) => {
     setFavorites((current) =>
       current.filter((character) => character.id !== id)
     );
-  };
-
-  const handleThemeToggle = () => {
-    const nextTheme: TTheme = theme === 'dark' ? 'light' : 'dark';
-
-    document.documentElement.dataset.theme = nextTheme;
-    setTheme(nextTheme);
   };
 
   return (
@@ -58,13 +45,6 @@ const App = () => {
             labels={LABELS}
             onRemove={handleRemove}
           />
-          <button
-            type='button'
-            className='standalone__themeToggle'
-            onClick={handleThemeToggle}
-          >
-            {theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'}
-          </button>
         </div>
       </header>
       <main className='standalone__main'>
