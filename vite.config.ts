@@ -58,9 +58,14 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false
   },
+  server: {
+    host: true,
+    allowedHosts: ['.githubpreview.dev', '.preview.github.dev']
+  },
   preview: {
     port: 5001,
     strictPort: true,
-    cors: true
+    cors: true,
+    allowedHosts: ['.githubpreview.dev', '.preview.github.dev']
   }
 });
