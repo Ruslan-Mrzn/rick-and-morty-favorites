@@ -1,0 +1,19 @@
+{
+  "name": "favorites dev",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/app",
+  "runServices": ["dev"],
+  "shutdownAction": "stopCompose",
+  "appPort": [5173, 5001],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "stylelint.vscode-stylelint",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
